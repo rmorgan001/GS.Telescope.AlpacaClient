@@ -1,0 +1,91 @@
+<Window x:Class="GS.Telescope.AlpacaClient.Views.MainWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:design="clr-namespace:GS.Telescope.AlpacaClient.MainApp"
+        xmlns:material="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        xmlns:models="clr-namespace:GS.Telescope.AlpacaClient.Models"
+        xmlns:vm="using:GS.Telescope.AlpacaClient.ViewModels"
+        Title="GS Ascom Telescope Alpaca Client"
+        Width="900"
+        Height="600"
+        MinWidth="800"
+        MinHeight="600"
+        x:DataType="vm:MainViewModel"
+        d:DataContext="{x:Static design:DesignData.MainViewModel}"
+        FontSize="14"
+        Icon="/Assets/GreenSwamp.ico"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <SplitView Grid.Column="0"
+                   Margin="10"
+                   BorderThickness="5"
+                   CompactPaneLength="53"
+                   DisplayMode="CompactInline"
+                   IsPaneOpen="{Binding IsPaneOpen}"
+                   OpenPaneLength="175">
+            <SplitView.Pane>
+                <StackPanel Margin="0,10,17,10" Spacing="5">
+                    <Button Name="TriggerPane" Command="{Binding TriggerPaneCommand}">
+                        <StackPanel>
+                            <material:MaterialIcon Width="20"
+                                                   Height="20"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Animation="None"
+                                                   Kind="Menu" />
+                        </StackPanel>
+                    </Button>
+                    <ListBox x:Name="ExampleListBox"
+                             ItemsSource="{Binding Items}"
+                             SelectedItem="{Binding SelectedListItem}"
+                             SelectionMode="Single">
+                        <Interaction.Behaviors>
+                            <EventTriggerBehavior EventName="SelectionChanged" SourceObject="ExampleListBox">
+                                <InvokeCommandAction Command="{Binding SelectedItemChangedCommand}" />
+                            </EventTriggerBehavior>
+                        </Interaction.Behaviors>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type models:MainMenuItemTemplate}">
+                                <StackPanel Orientation="Horizontal" Spacing="15">
+                                    <material:MaterialIcon Width="20"
+                                                           Height="20"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
+                                                           Animation="None"
+                                                           Kind="{Binding Kind}" />
+                                    <Label Content="{Binding Label}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Border CornerRadius="12 10 10 10">
+                    <TransitioningContentControl Content="{Binding CurrentPage}" />
+                </Border>
+            </SplitView.Content>
+        </SplitView>
+        <Grid Name="DialogOverlay" 
+              Grid.Column="0"
+              IsVisible="{Binding #DialogOverlay.Opacity}"
+              Opacity="{Binding Dialog.IsDialogOpen, FallbackValue=0}">
+            <Grid.Styles>
+                <Style Selector="Grid">
+                    <Setter Property="Transitions">
+                        <Transitions>
+                            <DoubleTransition Property="Opacity"
+                                              Duration="0:0:0.1" />
+                        </Transitions>
+                    </Setter>
+                </Style>
+            </Grid.Styles>
+            <Border Background="Black" Opacity="0.5" />
+            <ContentControl HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="{Binding Dialog}" />
+        </Grid>
+    </Grid>
+
+</Window>

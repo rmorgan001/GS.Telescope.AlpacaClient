@@ -1,0 +1,29 @@
+<UserControl x:Class="GS.Telescope.AlpacaClient.Views.HomePageView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:assists="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
+             xmlns:mainApp="clr-namespace:GS.Telescope.AlpacaClient.MainApp"
+             xmlns:vm="using:GS.Telescope.AlpacaClient.ViewModels"
+             xmlns:ext="clr-namespace:GS.Telescope.AlpacaClient.Extensions"
+             x:DataType="vm:HomePageViewModel"
+             d:DataContext="{x:Static mainApp:DesignData.HomePageViewModel}">
+    <Border BorderBrush="{DynamicResource MaterialSecondaryLightBrush}" BorderThickness="1">
+        <Grid Margin="5"
+              RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+              ShowGridLines="False">
+            <StackPanel Grid.Row="0" Margin="5">
+                <TextBlock HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Classes="Headline4"
+                           Text="{ext:Localize Home}" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Margin="5">
+                <Separator Height="5" />
+
+            </StackPanel>
+
+        </Grid>
+    </Border>
+</UserControl>
+

@@ -1,0 +1,82 @@
+<UserControl x:Class="GS.Telescope.AlpacaClient.Views.SettingsPageView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:assists="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
+             xmlns:mainApp="clr-namespace:GS.Telescope.AlpacaClient.MainApp"
+             xmlns:vm="using:GS.Telescope.AlpacaClient.ViewModels"
+             xmlns:ext="clr-namespace:GS.Telescope.AlpacaClient.Extensions"
+             x:DataType="vm:SettingsPageViewModel"
+             d:DataContext="{x:Static mainApp:DesignData.SettingsPageViewModel}">
+    <Border BorderBrush="{DynamicResource MaterialSecondaryLightBrush}" BorderThickness="1">
+        <Grid Margin="5"
+              RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+              ShowGridLines="False">
+            <StackPanel Grid.Row="0" Margin="5">
+                <TextBlock HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Classes="Headline4"
+                           Text="{ext:Localize Settings}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Margin="5">
+                <Separator Height="5" />
+                <TextBlock HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Classes="Headline6"
+                           Text="{ext:Localize Theme}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Margin="5"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                <ComboBox MinWidth="150"
+                          assists:ComboBoxAssist.Label="{ext:Localize PrimaryColor}"
+                          Classes="dense"
+                          ItemsSource="{Binding Path=PrimaryColors}"
+                          SelectedItem="{Binding SelectedPrimaryColor}"
+                          Theme="{DynamicResource MaterialOutlineComboBox}" />
+                <ComboBox MinWidth="150"
+                          assists:ComboBoxAssist.Label="{ext:Localize SecondaryColor}"
+                          Classes="dense"
+                          ItemsSource="{Binding Path=SecondaryColors}"
+                          SelectedItem="{Binding SelectedSecondaryColor}"
+                          Theme="{DynamicResource MaterialOutlineComboBox}" />
+                <TextBlock VerticalAlignment="Center" Text="{ext:Localize Light}" />
+                <ToggleSwitch IsChecked="{Binding SelectedBaseTheme}" />
+                <TextBlock VerticalAlignment="Center" Text="{ext:Localize Dark}" />
+                <Button Height="30"
+                        VerticalAlignment="Center"
+                        Classes="accent"
+                        Command="{Binding TriggerThemeCommand}"
+                        Content="{ext:Localize BtnUpdate}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="3" Margin="5">
+                <Separator Height="5" />
+                <TextBlock HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Classes="Headline6"
+                           Text="{ext:Localize Languages}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="4" Margin="5"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                <ComboBox Width="170"
+                          assists:ComboBoxAssist.Label="{ext:Localize Languages}"
+                          Classes="dense"
+                          ItemsSource="{Binding Path=LanguageList}"
+                          SelectedItem="{Binding SelectedLanguage}"
+                          Theme="{DynamicResource MaterialOutlineComboBox}" />
+                <Button Height="30"
+                        VerticalAlignment="Center"
+                        Classes="accent"
+                        Command="{Binding TriggerLanguageCommand}"
+                        Content="{ext:Localize BtnUpdate}" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

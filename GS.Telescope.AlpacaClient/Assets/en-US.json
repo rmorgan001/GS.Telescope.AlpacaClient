@@ -1,0 +1,18 @@
+{
+  "1.0.0.0": "Initial release",
+  "BtnUpdate": "Update",
+  "BtnAccept": "Accept",
+  "BtnCancel": "Cancel",
+  "Connections": "Connections",
+  "Home": "Home",
+  "Light": "Light",
+  "Dark": "Dark",
+  "Model": "Model",
+  "PrimaryColor": "Primary Color",
+  "SecondaryColor": "Secondary Color",
+  "Settings": "Settings",
+  "Theme": "Theme",
+  "Languages": "Languages",
+  "DiaConfirm": "Confirm",
+  "DiaMessage1": "Are you sure?"
+}
