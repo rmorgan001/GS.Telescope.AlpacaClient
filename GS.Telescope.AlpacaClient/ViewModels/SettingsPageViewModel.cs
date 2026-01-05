@@ -77,7 +77,9 @@ namespace GS.Telescope.AlpacaClient.ViewModels
             localizeService.LoadLanguage(SelectedLanguage);
             return true;
         }
-        [RelayCommand] private async Task TriggerLanguageAsync()
+
+        [RelayCommand]
+        private async Task TriggerLanguageAsync()
         {
             var confirmViewModel = new ConfirmDialogViewModel(localizeService)
             {
@@ -92,8 +94,8 @@ namespace GS.Telescope.AlpacaClient.ViewModels
 
             settingsService.Language = SelectedLanguage;
             localizeService.LoadLanguage(SelectedLanguage);
+            mainViewModel.UpdateMenuCommand.Execute(null);
         }
-
         #endregion
     }
 }

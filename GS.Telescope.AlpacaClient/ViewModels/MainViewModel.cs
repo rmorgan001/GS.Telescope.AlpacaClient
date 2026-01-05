@@ -62,14 +62,14 @@ namespace GS.Telescope.AlpacaClient.ViewModels
 
         public void Receive(SettingsEvent message)
         {
+            // added as an example on how to read any setting change
             // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
             //if (MySettings == null) { return;}
 
             switch (message.PropertyName)
             {
-                case "BaseTheme":
-                    //BaseTheme = MySettings.BaseTheme;
-                    // BaseTheme = _settings.BaseTheme;
+                case "Language":
+                  //  UpdateMainMenuNames(); 
                     break;
                 case "SettingsVersion":
                     //SettingsVersion = _settings.SettingsVersion;
@@ -84,10 +84,16 @@ namespace GS.Telescope.AlpacaClient.ViewModels
         }
 
         [RelayCommand]
-        private void TriggerPane()
+        public void TriggerPane()
         {
             UpdateMainMenuNames();
             IsPaneOpen = !IsPaneOpen;
+        }
+
+        [RelayCommand]
+        public void UpdateMenu()
+        {
+            UpdateMainMenuNames();
         }
 
         [RelayCommand]
