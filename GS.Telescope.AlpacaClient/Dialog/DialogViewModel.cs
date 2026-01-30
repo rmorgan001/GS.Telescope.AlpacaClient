@@ -1,23 +1,25 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System.Threading.Tasks;
-namespace GS.Telescope.AlpacaClient.ViewModels;
+﻿using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
+using GS.Telescope.AlpacaClient.ViewModels;
+
+namespace GS.Telescope.AlpacaClient.Dialog;
 
 public partial class DialogViewModel : ViewModelBase
 {
     [ObservableProperty]
     private bool _isDialogOpen;
 
-    protected TaskCompletionSource closeTask = new TaskCompletionSource();
+    protected TaskCompletionSource CloseTask = new();
 
     public async Task WaitAsnyc()
     {
-        await closeTask.Task;
+        await CloseTask.Task;
     }
 
     public void Show()
     {
-        if (closeTask.Task.IsCompleted)
-            closeTask = new TaskCompletionSource();
+        if (CloseTask.Task.IsCompleted)
+            CloseTask = new TaskCompletionSource();
         IsDialogOpen = true;
     }
 
@@ -25,7 +27,7 @@ public partial class DialogViewModel : ViewModelBase
     {
         IsDialogOpen = false;
 
-        closeTask.TrySetResult();
+        CloseTask.TrySetResult();
     }
 
 }

@@ -1,4 +1,4 @@
-﻿using GS.Telescope.AlpacaClient.ViewModels;
+﻿using DialogViewModel = GS.Telescope.AlpacaClient.Dialog.DialogViewModel;
 
 namespace GS.Telescope.AlpacaClient.Interfaces;
 

@@ -3,6 +3,7 @@ using Avalonia.Controls.Templates;
 using GS.Telescope.AlpacaClient.ViewModels;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using DialogViewModel = GS.Telescope.AlpacaClient.Dialog.DialogViewModel;
 
 namespace GS.Telescope.AlpacaClient.MainApp
 {

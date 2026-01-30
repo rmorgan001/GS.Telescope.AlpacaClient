@@ -1,3 +1,6 @@
 <Solution>
-  <Project Path="GS.Telescope.AlpacaClient/GS.Telescope.AlpacaClient.csproj" />
+  <Project Path="GS.Telescope.AlpacaClient/GS.Telescope.AlpacaClient.csproj">
+    <BuildDependency Project="WebViewControl/WebViewControl.csproj" />
+  </Project>
+  <Project Path="WebViewControl/WebViewControl.csproj" />
 </Solution>

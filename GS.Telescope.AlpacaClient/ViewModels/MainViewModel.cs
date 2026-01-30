@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia.Platform.Storage;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using GS.Telescope.AlpacaClient.Extensions;
@@ -16,10 +17,10 @@ namespace GS.Telescope.AlpacaClient.ViewModels
     {
         private readonly PageFactory _factory;
         private readonly LocalizeService _localizeService;
-
+        
         [ObservableProperty] private bool _isPaneOpen;
         [ObservableProperty] private MainMenuItemTemplate? _selectedListItem;
-        [ObservableProperty] private DialogViewModel? _dialog;
+        [ObservableProperty] private Dialog.DialogViewModel? _dialog;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(ConnectPageIsActive))]

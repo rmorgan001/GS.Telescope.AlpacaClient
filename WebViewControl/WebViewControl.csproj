@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>GreenSwampWebView</RootNamespace>
+    <AssemblyName>GreenSwampWebView</AssemblyName>
+  </PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DefineConstants>$(DefineConstants);WINDOWS</DefineConstants>
+		<NoWarn>;MSB3277</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DefineConstants>$(DefineConstants);WINDOWS</DefineConstants>
+		<NoWarn>;MSB3277</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.3.10" />
+    <!-- Pin a concrete stable version of WebView2 to avoid drifting -->
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3650.58" Condition="$([MSBuild]::IsOSPlatform('Windows'))" />
+  </ItemGroup>
+
+</Project>

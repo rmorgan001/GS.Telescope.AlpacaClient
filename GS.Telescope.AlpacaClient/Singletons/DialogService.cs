@@ -3,10 +3,10 @@ using Avalonia.Platform.Storage;
 using GS.Telescope.AlpacaClient.Dialog;
 using GS.Telescope.AlpacaClient.Interfaces;
 using GS.Telescope.AlpacaClient.MainApp;
-using GS.Telescope.AlpacaClient.ViewModels;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using DialogViewModel = GS.Telescope.AlpacaClient.Dialog.DialogViewModel;
 
 namespace GS.Telescope.AlpacaClient.Singletons;
 
@@ -16,7 +16,7 @@ public class DialogService(Func<TopLevel?> topLevel)
         where TDialogViewModel : DialogViewModel
         where THost : IDialogProvider
     {
-        if (!Avalonia.Controls.Design.IsDesignMode)
+        if (!Design.IsDesignMode)
         {
             // Set host dialog to provided one
             host.Dialog = dialogViewModel;
