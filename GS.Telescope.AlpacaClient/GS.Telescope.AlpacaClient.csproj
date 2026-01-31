@@ -18,9 +18,23 @@
     <AvaloniaResource Remove="Assets\compassN.png" />
     <AvaloniaResource Remove="Assets\compassS.png" />
     <AvaloniaResource Remove="Assets\Default.obj" />
+    <AvaloniaResource Remove="Assets\DefaultAltAz.obj" />
+    <AvaloniaResource Remove="Assets\DualTelescopeAltAz.obj" />
+    <AvaloniaResource Remove="Assets\DualTelescopePolarLeft.obj" />
+    <AvaloniaResource Remove="Assets\DualTelescopePolarRight.obj" />
+    <AvaloniaResource Remove="Assets\en-US.json" />
     <AvaloniaResource Remove="Assets\Index1.html" />
     <AvaloniaResource Remove="Assets\NorthAmerica.jpg" />
+    <AvaloniaResource Remove="Assets\Reflector.obj" />
+    <AvaloniaResource Remove="Assets\ReflectorAltAz.obj" />
+    <AvaloniaResource Remove="Assets\Refractor.obj" />
+    <AvaloniaResource Remove="Assets\RefractorAltAz.obj" />
+    <AvaloniaResource Remove="Assets\RitcheyChretien.obj" />
+    <AvaloniaResource Remove="Assets\RitcheyChretienAltAz.obj" />
     <AvaloniaResource Remove="Assets\RitcheyChretienTruss.obj" />
+    <AvaloniaResource Remove="Assets\RitcheyChretienTrussAltAz.obj" />
+    <AvaloniaResource Remove="Assets\SchmidtCassegrain.obj" />
+    <AvaloniaResource Remove="Assets\SchmidtCassegrainAltAz.obj" />
     <AvaloniaResource Remove="Assets\viewer.js" />
   </ItemGroup>
 
@@ -56,12 +70,54 @@
     <None Update="Assets\Default.obj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\DefaultAltAz.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\DualTelescopeAltAz.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\DualTelescopePolarLeft.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\DualTelescopePolarRight.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\en-US.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
     <AvaloniaResource Update="Assets\greenswamp1.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AvaloniaResource>
     <AvaloniaResource Update="Assets\GreenSwamp1.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AvaloniaResource>
+    <None Update="Assets\Reflector.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\ReflectorAltAz.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Refractor.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\RefractorAltAz.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\RitcheyChretien.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\RitcheyChretienAltAz.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\RitcheyChretienTrussAltAz.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\SchmidtCassegrain.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\SchmidtCassegrainAltAz.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\viewer.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
