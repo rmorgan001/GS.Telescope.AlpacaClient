@@ -17,6 +17,7 @@
     <AvaloniaResource Remove="Assets\babylonjs.loaders.min.js" />
     <AvaloniaResource Remove="Assets\compassN.png" />
     <AvaloniaResource Remove="Assets\compassS.png" />
+    <AvaloniaResource Remove="Assets\Default.obj" />
     <AvaloniaResource Remove="Assets\Index1.html" />
     <AvaloniaResource Remove="Assets\NorthAmerica.jpg" />
     <AvaloniaResource Remove="Assets\RitcheyChretienTruss.obj" />
@@ -50,6 +51,9 @@
 
   <ItemGroup>
     <None Update="Assets\babylonjs.loaders.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Default.obj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <AvaloniaResource Update="Assets\greenswamp1.ico">

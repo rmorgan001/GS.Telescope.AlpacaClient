@@ -58,13 +58,18 @@
             const skyboxBase64 = window.skyboxTextureData || '';
             const compassNorthBase64 = window.compassNorthTextureData || '';
             const compassSouthBase64 = window.compassSouthTextureData || '';
+            const primaryHex = window.primaryHexColorData || "#FF0000";;
+            const secondaryHex = window.secondaryHexColorData || "#00FF00";;
+            const nHemiSphere = window.nHemiSphereData || "true";;
 
             console.log('Initializing viewer with textures:',
+                'primary4Hex:', primaryHex, 'string,',
+                'secondary4Hex:', secondaryHex, 'string,',
                 'skybox:', skyboxBase64.length, 'bytes,',
                 'compassN:', compassNorthBase64.length, 'bytes,',
-                'compassS:', compassSouthBase64.length, 'bytes');
+                'compassS:', compassSouthBase64.length, 'bytes,');
 
-            viewer = new BabylonViewer('renderCanvas', skyboxBase64, compassNorthBase64, compassSouthBase64);
+            viewer = new BabylonViewer('renderCanvas', skyboxBase64, compassNorthBase64, compassSouthBase64, primaryHex, secondaryHex, nHemiSphere);
             return 'TelescopeViewer initialized';
         }
 
@@ -83,13 +88,13 @@
         //	viewer.setTelescopeRotation(altitude, rightAscension, declination);
         //}
 
-        //function setHemisphere(isNorthern) {
-        //	if (!viewer) {
-        //		console.error('Viewer not initialized');
-        //		return;
-        //	}
-        //	viewer.setHemisphere(isNorthern);
-        //}
+        function setHemisphere(isNorthern) {
+        	if (!viewer) {
+        		console.error('Viewer not initialized');
+        		return;
+        	}
+        	viewer.setHemisphere(isNorthern);
+        }
     </script>
 </body>
 </html>

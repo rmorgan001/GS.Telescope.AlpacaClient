@@ -14,7 +14,7 @@ public class DialogService(Func<TopLevel?> topLevel)
 {
     public async Task ShowDialog<THost, TDialogViewModel>(THost host, TDialogViewModel dialogViewModel)
         where TDialogViewModel : DialogViewModel
-        where THost : IDialogProvider
+        where THost : IDialogProvider?
     {
         if (!Design.IsDesignMode)
         {

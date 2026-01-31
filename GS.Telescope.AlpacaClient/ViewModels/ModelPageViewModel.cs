@@ -2,18 +2,47 @@
 using GreenSwampWebView;
 using GS.Telescope.AlpacaClient.MainApp;
 using GS.Telescope.AlpacaClient.Singletons;
+using Material.Colors;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
-
 namespace GS.Telescope.AlpacaClient.ViewModels
 {
-    public partial class ModelPageViewModel() : PageViewModel(ApplicationPageNames.Model3D)
+    public partial class ModelPageViewModel(MainViewModel mainViewModel , DialogService dialogService, SettingsService settingsService, LocalizeService localizeService, string? blank) : PageViewModel(ApplicationPageNames.Model3D)
     {
+        // ReSharper disable once UnusedMember.Global
+        public string? Blank { get; } = blank;
+
         private bool _isViewerInitialized;
         private readonly string? _currentObjFilePath;
+
+        public ModelPageViewModel(MainViewModel mainViewModel , DialogService dialogService, SettingsService settingsService, LocalizeService localizeService) : this(mainViewModel, dialogService, settingsService, localizeService, null)
+        {
+            try
+            {
+                // Load the viewer HTML
+                WebViewControl.NavigationCompleted += WebView_NavigationCompleted;
+                WebViewControl.NavigationStarting += WebView_NavigationStarting;
+                WebViewControl.NavigationFailed += WebView_NavigationFailed;
+
+                var htmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Index1.html");
+                if (File.Exists(htmlPath))
+                {
+                    WebViewControl.Navigate($"file:///{htmlPath.Replace("\\", "/")}");
+                }
+
+                // Load the OTA
+                var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", settingsService.ModelFilename);
+                if (!File.Exists(filePath)) return;
+                _currentObjFilePath = filePath;
+            }
+            catch (Exception ex)
+            {
+                StatusTextBlock = $"Error loading model: {ex.Message}";
+            }
+        }
 
         [ObservableProperty] private WebView _webViewControl = new(); 
 
@@ -48,7 +77,7 @@ namespace GS.Telescope.AlpacaClient.ViewModels
         [ObservableProperty] private string _decHelperText = "0° = Celestial Equator, ±90° = Poles";
 
         [ObservableProperty] private string _statusTextBlock = "Ready";
-
+        
         // Property Change Handlers
         partial void OnIsNorthernHemisphereChanged(bool value)
         {
@@ -62,36 +91,6 @@ namespace GS.Telescope.AlpacaClient.ViewModels
             if (!value) return;
             IsNorthernHemisphere = false;
             HemisphereDescription = "Southern Hemisphere";
-        }
-
-        public ModelPageViewModel(
-            MainViewModel mainViewModel,
-            DialogService dialogService,
-            SettingsService settingsService,
-            LocalizeService localizeService) : this()
-        {
-            try
-            {
-                // Load the viewer HTML
-                WebViewControl.NavigationCompleted += WebView_NavigationCompleted;
-                WebViewControl.NavigationStarting += WebView_NavigationStarting;
-                WebViewControl.NavigationFailed += WebView_NavigationFailed;
-
-                var htmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "Index1.html");
-                if (File.Exists(htmlPath))
-                {
-                    WebViewControl.Navigate($"file:///{htmlPath.Replace("\\", "/")}");
-                }
-
-                // Load the OTA
-                var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "RitcheyChretienTruss.obj");
-                if (!File.Exists(filePath)) return;
-                _currentObjFilePath = filePath;
-            }
-            catch (Exception ex)
-            {
-                StatusTextBlock = $"Error loading model: {ex.Message}";
-            }
         }
 
         private void WebView_NavigationStarting(object? sender, WebViewNavigationEventArgs e)
@@ -121,6 +120,13 @@ namespace GS.Telescope.AlpacaClient.ViewModels
         {
             try
             {
+                // get material theme colors
+                var primary = settingsService.PrimaryColor ;
+                var primaryColorHex =  SwatchHelper.Lookup[(MaterialColor)primary].ToString().Remove(1,2);
+                
+                var secondary = settingsService.SecondaryColor ;
+                var secondaryColorHex =  SwatchHelper.Lookup[(MaterialColor)secondary].ToString().Remove(1,2);
+
                 StatusTextBlock = "Loading textures...";
                 //System.Diagnostics.Debug.WriteLine("System Diagnostics Debug");
 
@@ -159,6 +165,9 @@ namespace GS.Telescope.AlpacaClient.ViewModels
                 await WebViewControl.ExecuteScriptAsync($"window.skyboxTextureData = '{skyboxBase64}';");
                 await WebViewControl.ExecuteScriptAsync($"window.compassNorthTextureData = '{compassNorthBase64}';");
                 await WebViewControl.ExecuteScriptAsync($"window.compassSouthTextureData = '{compassSouthBase64}';");
+                await WebViewControl.ExecuteScriptAsync($"window.primaryHexColorData = '{primaryColorHex}';");
+                await WebViewControl.ExecuteScriptAsync($"window.secondaryHexColorData = '{secondaryColorHex}';");
+                await WebViewControl.ExecuteScriptAsync($"window.nHemiSphereData = '{settingsService.NHemiSphere.ToString()}';");
 
                 // Initialize viewer (it will read from window variables)
                 var result = await WebViewControl.ExecuteScriptAsync("initViewer()");
@@ -168,6 +177,8 @@ namespace GS.Telescope.AlpacaClient.ViewModels
                 {
                     StatusTextBlock = "TelescopeViewer initialized. Load a telescope model to begin.";
                     if (_currentObjFilePath != null) _ = LoadModelAsync(_currentObjFilePath);
+                    IsNorthernHemisphere = settingsService.NHemiSphere;
+                    await UpdateHemisphereAsync();
                 }
             }
             catch (Exception ex)
@@ -302,5 +313,12 @@ namespace GS.Telescope.AlpacaClient.ViewModels
                 Debug.WriteLine($"Error in UpdateHemisphereAsync: {ex}");
             }
         }
+
+        //private async void HemisphereChanged(object? sender, RoutedEventArgs e)
+        //{
+        //    if (!_isViewerInitialized) return;
+        //    await UpdateHemisphereAsync();
+        //    StatusTextBlock = $"Hemisphere: {HemisphereDescription}";
+        //}
     }
 }

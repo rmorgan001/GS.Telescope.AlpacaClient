@@ -5,13 +5,17 @@
  * Main BabylonViewer class - manages telescope mount 3D scene
  */
 class BabylonViewer {
-    constructor(canvasId, skyboxBase64, compassNorthBase64, compassSouthBase64) {
+    constructor(canvasId, skyboxBase64, compassNorthBase64, compassSouthBase64, primaryHex, secondaryHex, nHemiSphere) {
         this.canvas = document.getElementById(canvasId);
         if (!this.canvas) {
             console.error("Canvas element not found:", canvasId);
             return;
         }
 
+        this.primaryColor = primaryHex.toString() || "#FF0000";   // Default primary color
+        this.secondaryColor = secondaryHex.toString() || "#00FF00";  // Default secondary color
+        this.nHemiSphere = "true";
+        this.nHemiSphere = (this.nHemiSphere === nHemiSphere);
 
         this.engine = null;
         this.scene = null;
@@ -25,7 +29,7 @@ class BabylonViewer {
         this.otaPivot = null;
         this.otaMesh = null;
 
-       //  Store base64 texture data
+        // Store base64 texture data
         this.skyboxBase64 = skyboxBase64;
         this.compassNorthBase64 = compassNorthBase64;
         this.compassSouthBase64 = compassSouthBase64;
@@ -120,9 +124,10 @@ class BabylonViewer {
             new window.BABYLON.Vector3(0, 1, 0),
             scene
         );
+
         hemisphericLight.intensity = 0.7;
-        hemisphericLight.diffuse = new window.BABYLON.Color3.FromHexString("#FF0000"); // all objects color #FF0000
-        hemisphericLight.specular = new window.BABYLON.Color3.FromHexString("#00FF00"); // glare color
+        hemisphericLight.diffuse = new window.BABYLON.Color3.FromHexString(this.secondaryColor); // all objects color #FF0000
+        hemisphericLight.specular = new window.BABYLON.Color3.FromHexString(this.primaryColor); // glare color
         hemisphericLight.groundColor = new window.BABYLON.Color3(0.2, 0.2, 0.2);
 
         // Directional light for shadows and highlights
@@ -190,7 +195,6 @@ class BabylonViewer {
         }, scene);
 
         this.pierBase.material = compass;
-
         console.log("Pier base created");
     }
 

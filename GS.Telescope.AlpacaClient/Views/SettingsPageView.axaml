@@ -1,80 +1,235 @@
 <UserControl x:Class="GS.Telescope.AlpacaClient.Views.SettingsPageView"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:assists="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
-             xmlns:mainApp="clr-namespace:GS.Telescope.AlpacaClient.MainApp"
-             xmlns:vm="using:GS.Telescope.AlpacaClient.ViewModels"
+             xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ext="clr-namespace:GS.Telescope.AlpacaClient.Extensions"
+             xmlns:mainApp="clr-namespace:GS.Telescope.AlpacaClient.MainApp"
+             xmlns:material="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:vm="using:GS.Telescope.AlpacaClient.ViewModels"
              x:DataType="vm:SettingsPageViewModel"
              d:DataContext="{x:Static mainApp:DesignData.SettingsPageViewModel}">
     <Border BorderBrush="{DynamicResource MaterialSecondaryLightBrush}" BorderThickness="1">
-        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
-              ShowGridLines="False">
-            <StackPanel Grid.Row="0" >
-                <TextBlock HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Classes="Headline4"
-                           Text="{ext:Localize Settings}" />
-            </StackPanel>
-            <StackPanel Grid.Row="1" >
-                <Separator Height="1" />
-            <TextBlock Margin="5"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Top"
-                       Classes="Headline6"
-                       Text="{ext:Localize Theme}" />
-            </StackPanel>
-            <StackPanel Grid.Row="2" Margin="5"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal"
-                        Spacing="10">
-                <ComboBox MinWidth="150"
-                          assists:ComboBoxAssist.Label="{ext:Localize PrimaryColor}"
-                          Classes="dense"
-                          ItemsSource="{Binding Path=PrimaryColors}"
-                          SelectedItem="{Binding SelectedPrimaryColor}"
-                          Theme="{DynamicResource MaterialOutlineComboBox}" />
-                <ComboBox MinWidth="150"
-                          assists:ComboBoxAssist.Label="{ext:Localize SecondaryColor}"
-                          Classes="dense"
-                          ItemsSource="{Binding Path=SecondaryColors}"
-                          SelectedItem="{Binding SelectedSecondaryColor}"
-                          Theme="{DynamicResource MaterialOutlineComboBox}" />
-                <TextBlock VerticalAlignment="Center" Text="{ext:Localize Light}" />
-                <ToggleSwitch IsChecked="{Binding SelectedBaseTheme}" />
-                <TextBlock VerticalAlignment="Center" Text="{ext:Localize Dark}" />
-                <Button Height="30"
-                        VerticalAlignment="Center"
-                        Classes="accent"
-                        Command="{Binding TriggerThemeCommand}"
-                        Content="{ext:Localize BtnUpdate}" />
-            </StackPanel>
-
-            <StackPanel Grid.Row="3" Margin="5">
-                <Separator Height="5" />
-                <TextBlock HorizontalAlignment="Left"
-                           VerticalAlignment="Top"
-                           Classes="Headline6"
-                           Text="{ext:Localize Languages}" />
-            </StackPanel>
-
-            <StackPanel Grid.Row="4" Margin="5"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal"
-                        Spacing="10">
-                <ComboBox Width="170"
-                          assists:ComboBoxAssist.Label="{ext:Localize Languages}"
-                          Classes="dense"
-                          ItemsSource="{Binding Path=LanguageList}"
-                          SelectedItem="{Binding SelectedLanguage}"
-                          Theme="{DynamicResource MaterialOutlineComboBox}" />
-                <Button Height="30"
-                        VerticalAlignment="Center"
-                        Classes="accent"
-                        Command="{Binding TriggerLanguageCommand}"
-                        Content="{ext:Localize BtnUpdate}" />
-            </StackPanel>
-        </Grid>
+        <controls:Card Padding="0" VerticalAlignment="Top">
+            <ScrollViewer Margin="5"
+                          HorizontalScrollBarVisibility="Hidden"
+                          VerticalScrollBarVisibility="Visible">
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" ShowGridLines="False">
+                    <StackPanel Grid.Row="0">
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Classes="Headline4"
+                                   Text="{ext:Localize Settings}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="1">
+                        <Separator Height="1" />
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <TextBlock Margin="5,5"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Classes="Headline6"
+                                   Text="{ext:Localize Theme}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="2"
+                                Margin="5"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal"
+                                Spacing="10">
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <ComboBox MinWidth="150"
+                                  assists:ComboBoxAssist.Label="{ext:Localize PrimaryColor}"
+                                  Classes="dense"
+                                  ItemsSource="{Binding Path=PrimaryColors}"
+                                  SelectedItem="{Binding SelectedPrimaryColor}"
+                                  Theme="{DynamicResource MaterialOutlineComboBox}" />
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <ComboBox MinWidth="150"
+                                  assists:ComboBoxAssist.Label="{ext:Localize SecondaryColor}"
+                                  Classes="dense"
+                                  ItemsSource="{Binding Path=SecondaryColors}"
+                                  SelectedItem="{Binding SelectedSecondaryColor}"
+                                  Theme="{DynamicResource MaterialOutlineComboBox}" />
+                        <TextBlock VerticalAlignment="Center" Text="{ext:Localize Light}" />
+                        <ToggleSwitch IsChecked="{Binding SelectedBaseTheme}" />
+                        <TextBlock VerticalAlignment="Center" Text="{ext:Localize Dark}" />
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <Button Width="30"
+                                Height="30"
+                                VerticalAlignment="Bottom"
+                                Classes="accent"
+                                Command="{Binding TriggerThemeCommand}"
+                                ToolTip.Tip="{ext:Localize BtnUpdate}">
+                            <material:MaterialIcon Width="30"
+                                                   Height="30"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Animation="None"
+                                                   Kind="ContentSave" />
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3">
+                        <Separator Height="1" />
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <TextBlock Margin="5,5"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Classes="Headline6"
+                                   Text="{ext:Localize Languages}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="4"
+                                Margin="5"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal"
+                                Spacing="10">
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <ComboBox Width="120"
+                                  assists:ComboBoxAssist.Label="{ext:Localize Languages}"
+                                  Classes="dense"
+                                  ItemsSource="{Binding Path=LanguageList}"
+                                  SelectedItem="{Binding SelectedLanguage}"
+                                  Theme="{DynamicResource MaterialOutlineComboBox}" />
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <Button Width="30"
+                                Height="30"
+                                VerticalAlignment="Bottom"
+                                Classes="accent"
+                                Command="{Binding TriggerLanguageCommand}"
+                                ToolTip.Tip="{ext:Localize BtnUpdate}">
+                            <material:MaterialIcon Width="30"
+                                                   Height="30"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Animation="None"
+                                                   Kind="ContentSave" />
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Grid.Row="5">
+                        <Separator Height="1" />
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <TextBlock Margin="5,5"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Classes="Headline6"
+                                   Text="{ext:Localize Model}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="6"
+                                Margin="5"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal"
+                                Spacing="10">
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <ComboBox Width="250"
+                                  assists:ComboBoxAssist.Label="{ext:Localize Models}"
+                                  Classes="dense"
+                                  ItemsSource="{Binding Path=ModelFileNames}"
+                                  SelectedItem="{Binding SelectedModel}"
+                                  Theme="{DynamicResource MaterialOutlineComboBox}" />
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <Button Width="30"
+                                Height="30"
+                                VerticalAlignment="Bottom"
+                                Classes="accent"
+                                Command="{Binding TriggerModelCommand}"
+                                ToolTip.Tip="{ext:Localize BtnUpdate}">
+                            <material:MaterialIcon Width="30"
+                                                   Height="30"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Animation="None"
+                                                   Kind="ContentSave" />
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Grid.Row="7">
+                        <Separator Height="1" />
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <TextBlock Margin="5,5"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Classes="Headline6"
+                                   Text="{ext:Localize Model}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="8"
+                                Height="100"
+                                Margin="5"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal"
+                                Spacing="10">
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <ComboBox Width="170"
+                                  assists:ComboBoxAssist.Label="{ext:Localize Languages}"
+                                  Classes="dense"
+                                  ItemsSource="{Binding Path=LanguageList}"
+                                  SelectedItem="{Binding SelectedLanguage}"
+                                  Theme="{DynamicResource MaterialOutlineComboBox}" />
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <Button Height="30"
+                                VerticalAlignment="Center"
+                                Classes="accent"
+                                Command="{Binding TriggerLanguageCommand}"
+                                Content="{ext:Localize BtnUpdate}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="9">
+                        <Separator Height="1" />
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <TextBlock Margin="5,5"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Classes="Headline6"
+                                   Text="{ext:Localize Model}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="10"
+                                Height="100"
+                                Margin="7"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal"
+                                Spacing="10">
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <ComboBox Width="170"
+                                  assists:ComboBoxAssist.Label="{ext:Localize Languages}"
+                                  Classes="dense"
+                                  ItemsSource="{Binding Path=LanguageList}"
+                                  SelectedItem="{Binding SelectedLanguage}"
+                                  Theme="{DynamicResource MaterialOutlineComboBox}" />
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <Button Height="30"
+                                VerticalAlignment="Center"
+                                Classes="accent"
+                                Command="{Binding TriggerLanguageCommand}"
+                                Content="{ext:Localize BtnUpdate}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="11">
+                        <Separator Height="1" />
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <TextBlock Margin="5,5"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Classes="Headline6"
+                                   Text="{ext:Localize Model}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="12"
+                                Height="100"
+                                Margin="7"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal"
+                                Spacing="10">
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <ComboBox Width="170"
+                                  assists:ComboBoxAssist.Label="{ext:Localize Languages}"
+                                  Classes="dense"
+                                  ItemsSource="{Binding Path=LanguageList}"
+                                  SelectedItem="{Binding SelectedLanguage}"
+                                  Theme="{DynamicResource MaterialOutlineComboBox}" />
+                        <!--  ReSharper disable once Xaml.StyleClassNotFound  -->
+                        <Button Height="30"
+                                VerticalAlignment="Center"
+                                Classes="accent"
+                                Command="{Binding TriggerLanguageCommand}"
+                                Content="{ext:Localize BtnUpdate}" />
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+        </controls:Card>
     </Border>
 </UserControl>

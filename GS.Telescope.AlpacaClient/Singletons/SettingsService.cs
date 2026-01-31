@@ -20,13 +20,27 @@ namespace GS.Telescope.AlpacaClient.Singletons
             set => SetValue(ref _language, value);
         }
 
+        private bool _nHemiSphere = true;
+        public bool NHemiSphere
+        {
+            get => _nHemiSphere;
+            set => SetValue(ref _nHemiSphere, value);
+        }
+
+        private string _modelFilename = "Default.obj";
+        public string ModelFilename
+        {
+            get => _modelFilename;
+            set => SetValue(ref _modelFilename, value);
+        }
+
         private IBaseTheme _baseTheme = Theme.Dark;
         public IBaseTheme BaseTheme
         {
             get => _baseTheme;
             set => SetValue(ref _baseTheme, value);
         }
-
+        
         private PrimaryColor _primaryColor = PrimaryColor.Purple;
         public PrimaryColor PrimaryColor
         {

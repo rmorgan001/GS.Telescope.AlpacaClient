@@ -7,17 +7,23 @@ using Material.Colors;
 using Material.Styles.Themes;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Threading.Tasks;
+
 
 
 namespace GS.Telescope.AlpacaClient.ViewModels
 {
-    public partial class SettingsPageViewModel(
-        MainViewModel mainViewModel,
-        DialogService dialogService,
-        SettingsService settingsService,
-        LocalizeService localizeService) : PageViewModel(ApplicationPageNames.Settings)
+    public partial class SettingsPageViewModel(MainViewModel mainViewModel , DialogService dialogService, SettingsService settingsService, LocalizeService localizeService, string? blank) : PageViewModel(ApplicationPageNames.Settings)
     {
+        // ReSharper disable once UnusedMember.Global
+        public string? Blank { get; } = blank;
+
+
+        public SettingsPageViewModel(MainViewModel mainViewModel , DialogService dialogService, SettingsService settingsService, LocalizeService localizeService) : this(mainViewModel, dialogService, settingsService, localizeService, null)
+        {
+            GetObjFileNames();
+        }
 
         #region Theme
 
@@ -51,32 +57,30 @@ namespace GS.Telescope.AlpacaClient.ViewModels
 
         [ObservableProperty] private string _selectedLanguage = settingsService.Language;
 
-        [RelayCommand] private async Task TestDialog1Async()
-        {
-            await TriggerLanguage1Async();
-        }
+        //[RelayCommand] private async Task TestDialog1Async()
+        //{
+        //    await TriggerLanguage1Async();
+        //}
 
-        private async Task<bool> TriggerLanguage1Async(bool warn = true)
-        {
-            if (warn)
-            {
-                var confirmViewModel = new ConfirmDialogViewModel(localizeService)
-                {
-                    IconText = "Info",
-                    IconHeight = 50,
-                    IconWidth = 50
-                };
+        //private async Task TriggerLanguage1Async(bool warn = true)
+        //{
+        //    if (warn)
+        //    {
+        //        var confirmViewModel = new ConfirmDialogViewModel(localizeService)
+        //        {
+        //            IconText = "Info",
+        //            IconHeight = 50,
+        //            IconWidth = 50
+        //        };
 
-                await dialogService.ShowDialog(mainViewModel, confirmViewModel);
+        //        await dialogService.ShowDialog(mainViewModel, confirmViewModel);
 
-                // Ignore if we clicked cancel
-                if (!confirmViewModel.Confirmed)
-                    return false;
-            }
-            settingsService.Language = SelectedLanguage;
-            localizeService.LoadLanguage(SelectedLanguage);
-            return true;
-        }
+        //        // Ignore if we clicked cancel
+        //        if (!confirmViewModel.Confirmed) return;
+        //    }
+        //    settingsService.Language = SelectedLanguage;
+        //    localizeService.LoadLanguage(SelectedLanguage);
+        //}
 
         [RelayCommand]
         private async Task TriggerLanguageAsync()
@@ -96,6 +100,40 @@ namespace GS.Telescope.AlpacaClient.ViewModels
             localizeService.LoadLanguage(SelectedLanguage);
             mainViewModel.UpdateMenuCommand.Execute(null);
         }
+        #endregion
+
+        #region Model
+
+        [ObservableProperty] private ObservableCollection<string> _modelFileNames = [];
+
+        [ObservableProperty] private string _selectedModel = settingsService.ModelFilename;
+
+        [RelayCommand]
+        private async Task TriggerModelAsync()
+        {
+            var confirmViewModel = new ConfirmDialogViewModel(localizeService)
+            {
+                IconHeight = 50,
+                IconWidth = 50,
+            };
+            await dialogService.ShowDialog(mainViewModel, confirmViewModel);
+
+            // Ignore if we clicked cancel
+            if (!confirmViewModel.Confirmed)
+                return;
+
+            settingsService.ModelFilename = SelectedModel;
+        }
+
+        private void GetObjFileNames()
+        {
+            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets");
+            var objFiles = Directory.GetFiles(filePath,"*.obj");
+            var objFilenames = new ObservableCollection<string>();
+            foreach (var filename in objFiles){objFilenames.Add(Path.GetFileName(filename));}
+            ModelFileNames = objFilenames;
+        }
+
         #endregion
     }
 }
